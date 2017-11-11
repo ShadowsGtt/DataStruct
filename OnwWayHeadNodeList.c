@@ -4,8 +4,9 @@
 	> Mail: 
 	> Created Time: 2017年11月08日 星期三 15时22分15秒
  ************************************************************************/
-/*带头结点的单向链表*/
+
 #include<stdio.h>
+#include<assert.h>
 #include<stdlib.h>
 #define DataType int
 typedef struct node 
@@ -21,6 +22,12 @@ pNode HeadCreate()
 }
 void Insert(pNode list,int num,DataType data) //list为插入链表的头节点地址,num 为插入的位置,data 插入的数据
 {
+    if(NULL == list)
+    {
+        printf("不存在该链表!\n");
+        return;
+    }
+    //assert(NULL != list);
     pNode p = (pNode)malloc(sizeof(Node));
     p->next = NULL;
     p->data = data;
@@ -48,6 +55,12 @@ void Insert(pNode list,int num,DataType data) //list为插入链表的头节点�
 }
 void Delect(pNode list,int num) //list 为链表头节点地址，num是删除元素位置
 {
+    if(NULL == list)
+    {
+        printf("不存在该链表!\n");
+        return;
+    }
+    //assert(NULL != list);
     pNode tmp;
     for(int i = 0;i < num-1;i++)
     {
@@ -64,6 +77,12 @@ void Delect(pNode list,int num) //list 为链表头节点地址，num是删除�
 }
 void Print(pNode list) 
 {
+    if(NULL == list)
+    {
+        printf("不存在该链表!\n");
+        return;
+    }
+    //assert(NULL != list);
     if(NULL == list->next)
     {
         printf("empty list\n");
@@ -78,6 +97,19 @@ void Print(pNode list)
     putchar(10);
     
 }
+void DestoryList(pNode *list) //传入二级指针,用于最后将指向头节点的指针置为NULL ,防止出现野指针
+{
+    pNode tmp;
+    while(((*list)->next)->next != NULL)
+    {
+        tmp = ((*list)->next)->next;
+        free((*list)->next);
+        (*list)->next = tmp;
+    }
+    free((*list)->next);
+    free(*list);
+    *list = NULL;
+}
 int main()
 {
     pNode a = HeadCreate();
@@ -89,6 +121,8 @@ int main()
     Insert(a,1,14);
     Insert(a,5,15);
     Delect(a,1);
+    Print(a);
+    DestoryList(&a);
     Print(a);
 
     return 0;
