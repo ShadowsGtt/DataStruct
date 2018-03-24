@@ -97,16 +97,15 @@ void HeapSort(int *a,int n )
     {
         Swap(&a[0],&a[i]);
         AdjustToBigHeap(a,0,i-1);
-
     }
 }
 int main()
 {
-    int a[15] = {0};
-    for(int i = 0;i < 15;i++)
+    int a[150] = {0};
+    for(int i = 0;i < 150;i++)
     {
         srand(i*time(NULL));
-        a[i] = rand()%50;
+        a[i] = rand()%500;
     }
     //int a[] = {20,50,10,30,70,20,80};
     int length = sizeof(a) / sizeof(int);
@@ -119,5 +118,6 @@ int main()
     printf("\n最终排序结果:\n");
     Print(a,length);
 
+    return 0;
     
 }

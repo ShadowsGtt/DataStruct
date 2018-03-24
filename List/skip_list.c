@@ -8,6 +8,9 @@
 #define MAX_INT 666
 #define MIN_INT -666
 
+typedef struct node Node;
+typedef struct skip_list skip_list;
+void PrintSkipList(skip_list *sl);
 
 //typedef char KeyType[10];
 //跳表的每个节点
@@ -75,7 +78,7 @@ void Insert(skip_list *sl,int key,ValueType value)
     Node *parry[sl->level];  //存放指向新节点的指针
     srand(time(NULL)+key); //随机化随机函数种子
     int k = rand()%(sl->level); //插入到随机层k
-    printf("k:%d\n",k);
+    printf("\nthe level:%d   the key:%d   the value:%d\n",k,key,value);
     //创建k+1个节点，并且填写相关信息
     for(int i = 0;i <= k;i++)
     {
@@ -107,6 +110,8 @@ void Insert(skip_list *sl,int key,ValueType value)
         //p指向下一层
         p = p->down;
     }
+    printf("after Insert:\n");
+    PrintSkipList(sl);
     
 }
 
@@ -174,7 +179,7 @@ void PrintSkipList(skip_list *sl)
         printf("第%d层:",i);
         while(phead != NULL)
         {
-            printf("%d--->",phead->key);
+            printf("[%d]%d--->",phead->key,phead->value);
             phead = phead->next;
         }
         putchar(10);
@@ -184,14 +189,14 @@ void PrintSkipList(skip_list *sl)
 int main()
 {
     skip_list *a = CreateSkipList(4);
-    PrintSkipList(a);
+    //PrintSkipList(a);
     Insert(a,10,20); 
     Insert(a,18,36); 
     Insert(a,9,18); 
     Insert(a,21,42); 
     Insert(a,3,6); 
     Insert(a,5,10); 
-    PrintSkipList(a);
+    //PrintSkipList(a);
     printf("查询结果:%d\n",Select(a,5));
     Delete(a,1);
     Delete(a,5);
