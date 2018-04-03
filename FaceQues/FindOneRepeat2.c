@@ -8,21 +8,14 @@
 *  例如，如果输入长度为8 的数组{2，3,5,4,3,2,6,7}，
 *  那么对应的输出是重复的数字2 或者3
 */
- #include <time.h>
- #include<assert.h>
-#include<stdlib.h>
-#include<stdio.h>
-#include<math.h>
+#include "../BitMap/BitMap.h"
 
-typedef struct 
-{
-    unsigned int a:32;
-    unsigned int b:32;
-    unsigned int c:32;
-
-}BitMap_t;
-
-BitMap_t bit_map;
+/*
+ * 方法：使用位图法
+ * 具体做法：从数组下标0处开始扫描，
+ * 判断位图中该位置处的值是否为1,如果是1则找到重复
+ * 如果不是1,则将位图中该位置置1，继续向后扫描
+ */
 
 void Swap(int *a,int *b);
 void Print(int *a,int length);
@@ -49,13 +42,21 @@ int FindOneRepeat(int *a,int length)
     if(0 >= length)
         return -1;
 
-    int bit[2] = {0};
-
-    for(int i = 0;i < length;i++)
+    BITMAP bit;
+    BIT_ZERO(bit);
+    for(int i = 0; i < length;i++)
     {
+        
+        if(BIT_ISSET(bit,a[i]))
+            return a[i];
+        else
+        {
+            BIT_SET(bit,a[i]);
+        }
+        
     }
-
     return -1;
+
 }
 int main()
 {
@@ -65,9 +66,11 @@ int main()
                 20,21,22,23,24,25,26,27,28,29,   \
                 30,31,32,33,34,35,36,37,38,2,   \
                 };
+    Print(a,40);
+    putchar(10);
+
+    int rept = FindOneRepeat(a,40);
+    printf("the repeat number is:%d\n",rept);
 
     
-    //printf("%p \n%p \n%p\n",&(bit_map.a),&(bit_map.b),&(bit_map.c) );
-    //int repeat = FindOneRepeat(a,7);
-    //printf("repeat:%d\n",repeat);
 }

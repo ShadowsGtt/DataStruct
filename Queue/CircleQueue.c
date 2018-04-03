@@ -16,16 +16,8 @@
 所以必须要牺牲一个元素的空间,让front 指向队列第一个元素的前一个位置
 */
 
-#include<stdlib.h>
-#include<stdio.h>
-#define DataType int
-typedef struct queue
-{
-    int capacity;      //队列的大小(容量)
-    int front,rear;
-    DataType a[0];       //变长数组a
-}Queue;
-Queue *Create(int capacity)       //创建队列,返回指向该队列的结构体指针
+#include "Queue.h"
+Queue *CreateCircleQueue(int capacity)       //创建队列,返回指向该队列的结构体指针
 {
     Queue *p = (Queue *)malloc(sizeof(Queue)+sizeof(DataType)*(capacity+1));  //多余开辟一个元素的空间,由于判断队满和队空会出现冲突
     p->rear = 0;
@@ -33,55 +25,47 @@ Queue *Create(int capacity)       //创建队列,返回指向该队列的结构�
     p->capacity = capacity+1;      //整个队列的容量也+1
     return p;
 }
-int Full(Queue *p)      //判断队列是否已满
+int CircleQueueIsFull(Queue *p)      //判断队列是否已满
 {
     if(((p->front)-1 == p->rear) || (p->rear+1)%(p->capacity) == p->front )
         return 1;
     return 0;
 }
-int Empty(Queue *p)     //判断队列是否为空 返回1为空
+int CircleQueueIsEmpty(Queue *p)     //判断队列是否为空 返回1为空
 {
     if(p->rear == p->front)  
         return 1;
     return 0;
 }
-void EnQueue(Queue *p,DataType data)    //向队列中添加元素
+void EnCircleQueue(Queue *p,DataType data)    //向队列中添加元素
 {
-    if(Full(p))      //如果队列已满
+    if(CircleQueueIsFull(p))      //如果队列已满
     {
         printf("the queue is full!\n");
         return ;
     }
     p->rear = (++(p->rear))%(p->capacity);
-    p->a[p->rear] = data;
+    p->data[p->rear] = data;
 }
-void DeQueue(Queue *p)      //从队列中取元素,如果想要用该元素得自己去拿,该函数只是移动了front,a[p->front] 即为想要取得元素
+DataType DeCiecleQueue(Queue *p)
 {
-    if(Empty(p))       //如果队列为空
+    if(CircleQueueIsEmpty(p))       //如果队列为空
     {
         printf("the queue is empty!\n");
-        return ;
+        return 0;
     }
     p->front = ++(p->front)%(p->capacity);       
+    return p->data[p->front];
+}
+
+/* 删除队列 */
+void DropQueue(Queue *p)
+{
+    free(p);
+    p = NULL;
 }
 int main()
 {
-    Queue *a = Create(3);
-    if(Empty(a))
-        printf("empty queue !\n");
-    printf("front:%d,rear:%d\n",a->front,a->rear);
-    EnQueue(a,1);
-    printf("front:%d,rear:%d\n",a->front,a->rear);
-    DeQueue(a);
-    EnQueue(a,3);
-    printf("front:%d,rear:%d\n",a->front,a->rear);
-    EnQueue(a,4);
-    printf("front:%d,rear:%d\n",a->front,a->rear);
-    EnQueue(a,5);
-    printf("front:%d,rear:%d\n",a->front,a->rear);
-    EnQueue(a,6);
-    printf("front:%d,rear:%d\n",a->front,a->rear);
-    DeQueue(a);
-    printf("front:%d,rear:%d\n",a->front,a->rear);
+
     return 0;
 }
