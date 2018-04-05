@@ -110,8 +110,71 @@ void post_order(BTree *root,int count)
 * @root:根节点地址
 * @count:节点个数
 * */
+
+Queue *CreateQueue(unsigned count)
+{
+    assert(0 != count);
+
+    Queue *p = (Queue *)malloc(sizeof(Queue)+sizeof(BTree *)*count);
+    assert(NULL != p);
+
+    p->capacity = count;
+    p->count = 0;
+    p->front = -1;
+    p->rear = -1;
+    return p;
+
+}
+void EnQueue(Queue *p, DataType data)
+{
+    if(p->capacity == p->count)
+    {
+        fprintf(stderr,"empty queue\r\n");
+        return;
+    }
+    p->data[++(p->rear)] = data;
+    p->count++;
+}
+
+DataType DeQueue(Queue *p)
+{
+    if(0 == p->count)
+    {
+        fprintf(stderr,"empty queue\r\n");
+        return NULL;
+    }
+    p->count--;
+    return (p->data[++(p->front)]);
+}
+
+void FreeQueue(Queue *p)
+{
+    free(p);
+    p = NULL;
+}
 void Transleve(BTree *root,int count)
 {
-    
-    
+    assert(0 != count);
+    assert(NULL != root);
+
+    Queue *que = CreateQueue(count);
+    assert(NULL != que);
+    BTree *cur = root;
+
+    printf("%c  ",cur->value);
+    EnQueue(que,cur);
+    while(que->count > 0)
+    {
+        cur = DeQueue(que);
+        if(NULL != cur->lchild)
+        {
+            printf("%c  ",cur->lchild->value);
+            EnQueue(que,cur->lchild);
+        }
+        if(NULL != cur->rchild)
+        {
+            printf("%c  ",cur->rchild->value);
+            EnQueue(que,cur->rchild);
+        }
+    }
 }

@@ -34,12 +34,23 @@ int main()
     BTree *p;
     Pre_In_order(pred,ind,0,9,0,9,&p);
 
+    printf("先序遍历:\n");
     pre_order(p,10);
 
+    printf("中序遍历:\n");
     in_order(p,10);
     
+    printf("后序遍历:\n");
     post_order(p,10);
 
+    printf("层次遍历:\n");
+    Transleve(p,10);
+    BTree *res = FindData(p,10,'I');
+    putchar(10);
+    if(NULL == res)
+        printf("not found\n");
+    else
+        printf("found:%c\n",res->value);
     putchar(10);
 }
 

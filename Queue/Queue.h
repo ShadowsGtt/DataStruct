@@ -1,19 +1,18 @@
-/*************************************************************************
-	> File Name: Queue.h
-	> Author: 
-	> Mail: 
-	> Created Time: 2018年04月02日 星期一 20时27分48秒
- ************************************************************************/
 
 #ifndef _QUEUE_H
 #define _QUEUE_H
 #include<stdlib.h>
 #include<stdio.h>
+#include<assert.h>
+#include <math.h>
 #define DataType int
 typedef struct queue
 {
-    int capacity;      //队列的大小(容量)
-    int front,rear;    //front指向队头元素前一个,rear指向队尾
+    unsigned capacity;      //队列的大小(容量)
+    
+    /* 循环队列中:front指向队头元素前一个,rear指向队尾*/
+    int front,rear;    
+    unsigned count;         //队列现存元素 
     DataType data[0];       //动态数组存放队列元素
 }Queue;
 
@@ -35,5 +34,12 @@ extern DataType DeCiecleQueue(Queue *p);
 /* 删除队列 */
 extern void DropQueue(Queue *);
 
+extern Queue *CreateSingalQueue(int);
+
+extern void EnSingalQueue(Queue *,DataType);
+
+extern DataType DeSingalQueue(Queue*);
+
+extern void FreeQueue(Queue *);
 
 #endif
