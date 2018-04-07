@@ -5,10 +5,10 @@
 * 返回值：叶子节点的数目*/
 
 /* 递归写法 */
-int GetLeavesCounts1(BTree *root)
+int GetLeavesCounts1(BTnode *root)
 {
     //assert(NULL != root);
-    BTree *cur = root;
+    BTnode *cur = root;
 
     if(NULL == cur)
         return 0;
@@ -17,11 +17,11 @@ int GetLeavesCounts1(BTree *root)
     return GetLeavesCounts1(cur->lchild)+GetLeavesCounts1(cur->rchild);
 }
 
-int GetLeavesCounts2(BTree *root)
+int GetLeavesCounts2(BTnode *root)
 {
     assert(NULL != root);
-    BTree *cur = root;
-    BTree *stack[100];
+    BTnode *cur = root;
+    BTnode *stack[100];
     int i = 0;
     int count = 0;
 

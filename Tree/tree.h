@@ -8,29 +8,29 @@
 #include<assert.h>
 #define ValueType char
 #define MAXSIZE 50
-typedef struct BTree
+typedef struct BTnode
 {
     ValueType      value;
-    struct BTree  *lchild;
-    struct BTree  *rchild;
-}BTree;
-extern void pre_order(BTree *,int);
-extern void in_order(BTree *,int);
-extern void post_order(BTree *,int);
-extern void Transleve(BTree *,int);
+    struct BTnode  *lchild;
+    struct BTnode  *rchild;
+}BTnode;
+extern void pre_order(BTnode *,int);
+extern void in_order(BTnode *,int);
+extern void post_order(BTnode *,int);
+extern void Transleve(BTnode *,int);
 /* 计算树中叶子节点的数目 */
-extern int GetLeavesCounts2(BTree *);
-extern int GetLeavesCounts1(BTree *);
+extern int GetLeavesCounts2(BTnode *);
+extern int GetLeavesCounts1(BTnode *);
 
 /* 根据先序遍历和中序遍历恢复二叉树 */
 void Pre_In_order(const char pred[],const char ind[],\
-        int i,int j,int k,int h,BTree **p);
+        int i,int j,int k,int h,BTnode **p);
 
 
-extern BTree *FindData(BTree *root,unsigned count,ValueType value);
+extern BTnode *FindData(BTnode *root,unsigned count,ValueType value);
 /* 层次遍历需要的函数声明 */
 
-typedef BTree *DataType;
+typedef BTnode *DataType;
 typedef struct
 {
     int front;

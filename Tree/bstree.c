@@ -9,7 +9,7 @@
 * */
 typedef struct
 {
-    BTree *root;        //根节点地址
+    BTnode *root;        //根节点地址
     unsigned count;     //BST已有节点个数
     unsigned high;      //树的高度
     unsigned leaf;      //叶子节点数目
@@ -40,15 +40,15 @@ int InsertIntoBST(BSTree *bst,ValueType value)
 {
     assert(NULL != bst);
 
-    BTree *cur = bst->root;
-    BTree *pre = NULL;
+    BTnode *cur = bst->root;
+    BTnode *pre = NULL;
 
     while(1) 
     {
         /* 如果BST目前是空 */
         if(NULL == bst->root)
         {
-            BTree *newnode = (BTree *)malloc((sizeof(BTree)));   
+            BTnode *newnode = (BTnode *)malloc((sizeof(BTnode)));   
             if(NULL == newnode)
                 return -1;
             newnode->value = value;
@@ -64,7 +64,7 @@ int InsertIntoBST(BSTree *bst,ValueType value)
             cur = cur->lchild;
             if(NULL == cur)
             {
-                BTree *newnode = (BTree *)malloc((sizeof(BTree)));   
+                BTnode *newnode = (BTnode *)malloc((sizeof(BTnode)));   
                 if(NULL == newnode)
                     return -1;
                 newnode->value = value;
@@ -81,7 +81,7 @@ int InsertIntoBST(BSTree *bst,ValueType value)
             cur = cur->rchild;
             if(NULL == cur)
             {
-                BTree *newnode = (BTree *)malloc((sizeof(BTree)));   
+                BTnode *newnode = (BTnode *)malloc((sizeof(BTnode)));   
                 if(NULL == newnode)
                     return -1;
                 newnode->value = value;

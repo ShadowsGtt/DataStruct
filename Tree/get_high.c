@@ -1,8 +1,8 @@
 #include "tree.h"
 
-int GetHigh(BTree *root)
+int GetHigh(BTnode *root)
 {
-    BTree *cur = root;
+    BTnode *cur = root;
     
     if(NULL == cur)
         return 0;

@@ -6,11 +6,11 @@
 * @root:根节点地址
 * @count:节点个数
 * */
-void pre_order(BTree *root,int count)
+void pre_order(BTnode *root,int count)
 {
-    BTree *stack[MAXSIZE] = {NULL};  //创建栈
+    BTnode *stack[MAXSIZE] = {NULL};  //创建栈
     int i = 0; //栈顶元素下标 0位置未使用
-    BTree *cur = root; 
+    BTnode *cur = root; 
 
     while(NULL != cur || i > 0)
     {
@@ -34,11 +34,11 @@ void pre_order(BTree *root,int count)
 * @root:根节点地址
 * @count:节点个数
 * */
-void in_order(BTree *root,int count)
+void in_order(BTnode *root,int count)
 {
-    BTree *stack[MAXSIZE];
+    BTnode *stack[MAXSIZE];
     int i = 0;
-    BTree *cur = root;
+    BTnode *cur = root;
 
     while(NULL != cur || i > 0)
     {
@@ -64,11 +64,11 @@ void in_order(BTree *root,int count)
 * @root:根节点地址
 * @count:节点个数
 * */
-void post_order(BTree *root,int count)
+void post_order(BTnode *root,int count)
 {
-    BTree *stack[MAXSIZE];
+    BTnode *stack[MAXSIZE];
     int i = 0;
-    BTree *cur = root;
+    BTnode *cur = root;
     int mark[MAXSIZE];
     /* mark数组说明: 
      * -1代表该节点左右孩子都没有访问
@@ -115,7 +115,7 @@ Queue *CreateQueue(unsigned count)
 {
     assert(0 != count);
 
-    Queue *p = (Queue *)malloc(sizeof(Queue)+sizeof(BTree *)*count);
+    Queue *p = (Queue *)malloc(sizeof(Queue)+sizeof(BTnode *)*count);
     assert(NULL != p);
 
     p->capacity = count;
@@ -152,14 +152,14 @@ void FreeQueue(Queue *p)
     free(p);
     p = NULL;
 }
-void Transleve(BTree *root,int count)
+void Transleve(BTnode *root,int count)
 {
     assert(0 != count);
     assert(NULL != root);
 
     Queue *que = CreateQueue(count);
     assert(NULL != que);
-    BTree *cur = root;
+    BTnode *cur = root;
 
     printf("%c  ",cur->value);
     EnQueue(que,cur);

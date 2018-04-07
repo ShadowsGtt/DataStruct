@@ -9,14 +9,14 @@
 *  @value:要查找的元素值
 *
 *  */
-BTree *FindData(BTree *root,unsigned count,ValueType value)
+BTnode *FindData(BTnode *root,unsigned count,ValueType value)
 {
     assert(NULL != root);
     assert(0 != count);
 
-    BTree *stack[count];
+    BTnode *stack[count];
     int i = -1;    //栈顶下标
-    BTree *cur = root;
+    BTnode *cur = root;
 
     while(NULL != cur || i >= 0)
     {

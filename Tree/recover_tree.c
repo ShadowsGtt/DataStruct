@@ -5,11 +5,11 @@
 
 /* i,j,k,h分别是当前子树先序序列和中序序列的下，上界 */
 void Pre_In_order(const char pred[],const char ind[],\
-                 int i,int j,int k,int h,BTree **p)
+                 int i,int j,int k,int h,BTnode **p)
 {
     int m;
 
-    *p = (BTree *)malloc(sizeof(BTree));
+    *p = (BTnode *)malloc(sizeof(BTnode));
     (*p)->value = pred[i];
     (*p)->lchild = NULL;
     (*p)->rchild = NULL;
@@ -31,7 +31,7 @@ int main()
 {
     char pred[] = "ACBGDEHFJI";
     char ind[] = "CGBAHEDJFI";
-    BTree *p;
+    BTnode *p;
     Pre_In_order(pred,ind,0,9,0,9,&p);
 
     printf("先序遍历:\n");
@@ -45,7 +45,7 @@ int main()
 
     printf("层次遍历:\n");
     Transleve(p,10);
-    BTree *res = FindData(p,10,'I');
+    BTnode *res = FindData(p,10,'I');
     putchar(10);
     if(NULL == res)
         printf("not found\n");
