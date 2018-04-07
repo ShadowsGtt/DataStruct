@@ -15,10 +15,10 @@
 *  @BIT_CLR:清除位图中标记位
 *  @BIT_ISSET:检测位图中标记位
 *  */
-typedef unsigned int BITMAP[9999];
+typedef unsigned int BITMAP[100];
 #define BIT_ZERO(a)                                     \
         do{                                             \
-            for(int i = 0;i < 9999;i++)                 \
+            for(int i = 0;i < 100;i++)                 \
                 *(a+i)=0;                               \
         }while(0)              
 
