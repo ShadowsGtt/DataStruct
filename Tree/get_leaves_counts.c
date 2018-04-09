@@ -39,7 +39,7 @@ int GetLeavesCounts2(BTnode *root)
             cur = stack[i--];
             cur = cur->rchild;
         }
-    }while(i > 0);
+    }while(i > 0 || cur != NULL);
 
     return count;
     

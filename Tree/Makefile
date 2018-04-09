@@ -5,4 +5,4 @@ a.out:$(object)
 
 bstree= bstree.c traversal.c get_leaves_counts.c
 bst:$(bstree)
-	gcc $(bstree) -o bst
+	gcc $(bstree) -o bst -g

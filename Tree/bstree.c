@@ -96,20 +96,117 @@ int InsertIntoBST(BSTree *bst,ValueType value)
     return -1;
 }
 
+/* 从BST树中删除一个节点 
+ * 成功:返回0
+ * 失败:返回-1
+ * @bst:要操作的BST树
+ * @value:要删除的节点值
+ *
+ * */
+int DeleteFromBST(BSTree *bst,ValueType value)
+{
+    /* 一颗空树 */
+    if(NULL == bst)
+        return -1;
+    BTnode **cur = NULL;
+    BTnode *temp = NULL;
+
+    cur = &bst->root;
+    
+    /* 让*cur先指向删除的节点 */
+    while((*cur)->value != value)
+    {
+        if((*cur)->value > value)
+            cur = &(*cur)->lchild;
+        if((*cur)->value < value)
+            cur = &(*cur)->rchild;
+        
+        /* 未找到要删除的节点 */
+        if(NULL == (*cur) )
+            return -1;
+    }
+
+    /* 如果要删除的节点没有左孩子,也没有右孩子 */
+    if( NULL == (*cur)->lchild && NULL == (*cur)->rchild )
+    {
+        free(*cur);
+        *cur = NULL;
+    }
+
+    /* 如果要删除的节点没有左孩子,但有右孩子 */
+    else if( NULL == (*cur)->lchild && NULL != (*cur)->rchild )
+    {
+        temp = *cur;
+        *cur = (*cur)->rchild;
+        free(temp);
+        temp = NULL;
+    }
+
+    /* 如果要删除的节点没有右孩子,但有左孩子 */
+    else if( NULL == (*cur)->rchild && NULL != (*cur)->lchild )
+    {
+        temp = *cur;
+        *cur = (*cur)->lchild;
+        free(temp);
+        temp = NULL;
+    }
+
+    /* 如果要删除的节点既有左孩子,又有右孩子 */
+    else
+    {
+        BTnode *minNode = NULL;
+        minNode = (*cur)->rchild;
+        while(minNode->lchild != NULL)
+            minNode =  minNode->lchild;
+        if(NULL == (*cur)->rchild->lchild && NULL == (*cur)->rchild->rchild )
+        {
+            minNode->lchild = (*cur)->lchild;
+            free(*cur);
+            (*cur) = minNode;
+        }
+        else
+        {
+            (*cur)->rchild->lchild = minNode->rchild;
+            minNode->lchild = (*cur)->lchild;
+            minNode->rchild = (*cur)->rchild;
+            free(*cur);
+            (*cur) = minNode;
+        }
+    }
+    return 0;
+}
+
+
 int main()
 {
     BSTree *tree = CreateBST();
+    InsertIntoBST(tree,'m');
     InsertIntoBST(tree,'e');
-    InsertIntoBST(tree,'a');
     InsertIntoBST(tree,'d');
-    InsertIntoBST(tree,'b');
+    InsertIntoBST(tree,'h');
+    InsertIntoBST(tree,'p');
+    InsertIntoBST(tree,'f');
+    InsertIntoBST(tree,'o');
     printf("count:%d\n",tree->count);
 
     pre_order(tree->root,tree->count);
     in_order(tree->root,tree->count);
     
     printf("leaf count1:%d\n",GetLeavesCounts1(tree->root));
+    printf("leaf count2:%d\n",GetLeavesCounts2(tree->root));
 
+
+    printf("delete node:'e'\n");
+    DeleteFromBST(tree,'e');
+    pre_order(tree->root,tree->count);
+    in_order(tree->root,tree->count);
+    printf("leaf count1:%d\n",GetLeavesCounts1(tree->root));
     printf("leaf count2:%d\n",GetLeavesCounts2(tree->root));
     
+    printf("delete node:'h'\n");
+    DeleteFromBST(tree,'h');
+    pre_order(tree->root,tree->count);
+    in_order(tree->root,tree->count);
+    printf("leaf count1:%d\n",GetLeavesCounts1(tree->root));
+    printf("leaf count2:%d\n",GetLeavesCounts2(tree->root));
 }
