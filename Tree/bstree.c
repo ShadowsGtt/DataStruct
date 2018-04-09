@@ -12,7 +12,6 @@ typedef struct
     BTnode *root;        //根节点地址
     unsigned count;     //BST已有节点个数
     unsigned high;      //树的高度
-    unsigned leaf;      //叶子节点数目
 }BSTree;
 
 
@@ -26,7 +25,6 @@ BSTree *CreateBST()
     bst->root  = NULL;
     bst->count = 0;
     bst->high  = 0;
-    bst->leaf  = 0;
 
     return bst;
 }
