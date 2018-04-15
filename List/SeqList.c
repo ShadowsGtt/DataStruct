@@ -2,7 +2,7 @@
 
 #include<stdio.h>
 #include<stdlib.h>
-#define MAXSIZE 5  //线性表最大容量
+#define MAXSIZE 10  //线性表最大容量
 #define DataType int
 
 typedef struct 

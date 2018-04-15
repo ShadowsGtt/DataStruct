@@ -120,7 +120,10 @@ int main()
     Insert(a,1,13);
     Insert(a,1,14);
     Insert(a,5,15);
+    Print(a);
     Delect(a,1);
+    Delect(a,2);
+
     Print(a);
     DestoryList(&a);
     Print(a);
