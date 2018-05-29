@@ -6,8 +6,10 @@
 * @root:根节点地址
 * @count:节点个数
 * */
-void pre_order(BTnode *root,int count)
+void pre_order(BTnode *root)
 {
+    if(NULL == root)
+        return;
     BTnode *stack[MAXSIZE] = {NULL};  //创建栈
     int i = 0; //栈顶元素下标 0位置未使用
     BTnode *cur = root; 
@@ -34,8 +36,10 @@ void pre_order(BTnode *root,int count)
 * @root:根节点地址
 * @count:节点个数
 * */
-void in_order(BTnode *root,int count)
+void in_order(BTnode *root)
 {
+    if(NULL == root)
+        return;
     BTnode *stack[MAXSIZE];
     int i = 0;
     BTnode *cur = root;
@@ -64,8 +68,10 @@ void in_order(BTnode *root,int count)
 * @root:根节点地址
 * @count:节点个数
 * */
-void post_order(BTnode *root,int count)
+void post_order(BTnode *root)
 {
+    if(NULL == root)
+        return;
     BTnode *stack[MAXSIZE];
     int i = 0;
     BTnode *cur = root;

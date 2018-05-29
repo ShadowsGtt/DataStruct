@@ -14,10 +14,10 @@ typedef struct BTnode
     struct BTnode  *lchild;
     struct BTnode  *rchild;
 }BTnode;
-extern void pre_order(BTnode *,int);
-extern void in_order(BTnode *,int);
-extern void post_order(BTnode *,int);
-extern void Transleve(BTnode *,int);
+extern void pre_order(BTnode *);
+extern void in_order(BTnode *);
+extern void post_order(BTnode *);
+extern void Transleve(BTnode *);
 /* 计算树中叶子节点的数目 */
 extern int GetLeavesCounts2(BTnode *);
 extern int GetLeavesCounts1(BTnode *);
