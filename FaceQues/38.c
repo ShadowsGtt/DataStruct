@@ -7,21 +7,36 @@ void Swap(char *p1,char *p2)
     *p2 = temp;
 }
 
-void Permutation(char *str,char *pBegin)
+
+/* 全排列递归代码 */
+void Perm(char * str,char *pHead)
 {
-    if(*pBegin == '\0')
+    if(*pHead == '\0')
         printf("%s\n",str);
-    for(char *p = pBegin;*p != '\0';p++)
+    else
     {
-        Swap(p,pBegin);
-        Permutation(str,pBegin+1);
-        Swap(p,pBegin);
+        for(char *p = pHead; *p != 0 ; p++)
+        {
+            if(p == pHead ||  *p != *pHead)
+            {
+                Swap(p,pHead);
+                Perm(str,pHead+1);
+                Swap(p,pHead);
+
+            }
+        }
     }
+
 }
+void foo(char *str)
+{
+    Perm(str,str);
+}
+
 
 int main()
 {
-    char str[] = "abc";
-    Permutation(str,str);
+    char str[] = "aac";
+    foo(str);
 
 }
