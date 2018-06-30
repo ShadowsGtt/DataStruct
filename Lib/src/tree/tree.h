@@ -8,6 +8,8 @@
 #include<assert.h>
 #define ValueType char
 #define MAXSIZE 50
+
+/* 树的节点 */
 typedef struct BTnode
 {
     ValueType      value;
@@ -25,7 +27,7 @@ extern void in_order(BTnode *);
 extern void post_order(BTnode *);
 
 /* 层次遍历 */
-extern void Transleve(BTnode *);
+extern void Transleve(BTnode *,int);
 
 /* 计算树中叶子节点的数目 */
 extern int GetLeavesCounts2(BTnode *);
@@ -44,6 +46,8 @@ extern BTnode *FindData(BTnode *root,unsigned count,ValueType value);
  *
  * */
 typedef BTnode *DataType;
+
+/* 一个队列的定义 */
 typedef struct
 {
     int front;
