@@ -38,6 +38,55 @@ void *my_memcpy(void *dst,void *src,unsigned len)
     }
     return ret;
 }
+
+void *memcpy(void *dest,void *src,size_t count)
+{
+    if(!dest || !src)
+        return NULL;
+    if(count <= 0)
+        return dest;
+
+    int blocks = count/sizeof(void *);
+    int left   = count%sizeof(void *);
+    
+    unsigned long *d = (unsigned long *)dest;
+    unsigned long *s = (unsigned long *)src;
+    
+    //内存重叠
+    if( (char *)src+count-1 >= (char *)dest ){
+        d = (unsigned long *)((char *)dest + count);
+        s = (unsigned long *)((char *)src + count);
+        while(blocks--)
+        {
+            *d-- = *s--;
+        }
+
+        char *nd = (char *)d;
+        char *ns = (char *)s;
+
+        while(left--)
+        {
+           *nd-- = *ns--; 
+        }
+    }
+    else{
+        d = (unsigned long *)((char *)dest + count);
+        s = (unsigned long *)((char *)src + count);
+        while(blocks--)
+        {
+            *d++ = *s++;
+        }
+
+        char *nd = (char *)d;
+        char *ns = (char *)s;
+
+        while(left--)
+        {
+           *nd++ = *ns++; 
+        }
+    }
+    return dest;
+}
 void test()
 {
     char a[100] = "hello,world,hello,world";
